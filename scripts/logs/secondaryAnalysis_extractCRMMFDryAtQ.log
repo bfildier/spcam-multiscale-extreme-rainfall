@@ -1,0 +1,138 @@
+
+ -- Load environment for machine jollyjumper for analysis...
+Environment already loaded
+
+------------------------------------------------------------------------
+     Extracting CRM mass flux for:
+     - compset FSPCAMm_AMIP
+     - experiment piControl
+     - subset tropics
+     - precipitation variables PRECT
+     - percentile 99.9
+------------------------------------------------------------------------
+
+
+ -- Load environment for machine jollyjumper for preprocessing...
+Environment already loaded
+[1m 1850-05-01-03600 --- 1850-05-02-00000 [m
+[1m 1850-05-02-03600 --- 1850-05-03-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-03-03600 --- 1850-05-04-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-04-03600 --- 1850-05-05-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-05-03600 --- 1850-05-06-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-06-03600 --- 1850-05-07-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-07-03600 --- 1850-05-08-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-08-03600 --- 1850-05-09-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-09-03600 --- 1850-05-10-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-10-03600 --- 1850-05-11-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-11-03600 --- 1850-05-12-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-12-03600 --- 1850-05-13-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-13-03600 --- 1850-05-14-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-14-03600 --- 1850-05-15-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-15-03600 --- 1850-05-16-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-16-03600 --- 1850-05-17-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-17-03600 --- 1850-05-18-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-18-03600 --- 1850-05-19-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-19-03600 --- 1850-05-20-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-20-03600 --- 1850-05-21-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-21-03600 --- 1850-05-22-00000 [m
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+Error: no matching input file.
+[1m 1850-05-22-03600 --- 1850-05-23-00000 [m

@@ -1,0 +1,44 @@
+
+ -- Load environment for machine jollyjumper for preprocessing...
+Environment already loaded
+
+------------------------------------------------------------
+     Computing PRECAREA_I90 and PRECFRAC_I90 
+     for FSPCAMm_AMIP and abrupt4xCO2
+------------------------------------------------------------
+
+    Creating PRECFRAC-I90_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+     and     PRECAREA-I90_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+
+------------------------------------------------------------
+     Computing PRECAREA_I75 and PRECFRAC_I75 
+     for FSPCAMm_AMIP and abrupt4xCO2
+------------------------------------------------------------
+
+    Creating PRECFRAC-I75_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+     and     PRECAREA-I75_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+
+------------------------------------------------------------
+     Computing PRECAREA_I50 and PRECFRAC_I50 
+     for FSPCAMm_AMIP and abrupt4xCO2
+------------------------------------------------------------
+
+    Creating PRECFRAC-I50_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+     and     PRECAREA-I50_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+
+------------------------------------------------------------
+     Computing PRECAREA_I25 and PRECFRAC_I25 
+     for FSPCAMm_AMIP and abrupt4xCO2
+------------------------------------------------------------
+
+    Creating PRECFRAC-I25_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+     and     PRECAREA-I25_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+
+------------------------------------------------------------
+     Computing PRECAREA_I10 and PRECFRAC_I10 
+     for FSPCAMm_AMIP and abrupt4xCO2
+------------------------------------------------------------
+
+    Creating PRECFRAC-I10_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+     and     PRECAREA-I10_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+/Users/bfildier/Code/python/2016/SpcamExtremes/scripts
