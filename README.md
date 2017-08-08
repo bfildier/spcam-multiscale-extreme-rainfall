@@ -1,2 +1,2 @@
-# multi-scale-extreme-rainfall
+# spcam-multiscale-extreme-rainfall
 Source code for statistical analysis of extreme rainfall in SPCAM simulations (Fildier et al., 2017).
