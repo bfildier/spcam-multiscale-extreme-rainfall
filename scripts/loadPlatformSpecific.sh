@@ -10,7 +10,7 @@ then
 
 	echo "Environment already loaded"
 
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then
 	echo "- Loading modules..."
 	

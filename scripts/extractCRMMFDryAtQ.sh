@@ -29,7 +29,7 @@ q_id="99.9"
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	dataroot="/Users/bfildier/Data"
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	dataroot=${scriptdir%\/*}
 fi

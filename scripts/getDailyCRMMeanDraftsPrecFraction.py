@@ -91,7 +91,7 @@ if __name__ == '__main__':
 	if hostname == "jollyjumper":
 		outputdir = os.path.join(os.path.dirname(os.path.dirname(inputdir)),
 			'preprocessed',case,'day')
-	elif "edison" in hostname:
+	elif "edison" in hostname or "cori" in hostname:
 		outputdir = os.path.join(os.path.dirname(currentpath),'preprocessed',case,'day')
 	outputfile_up = newvaridup.replace('_','-')+"_day_CESM111-SPCAM20_"+experiment+\
 	"_r1i1p1_"+datetime1[:8]+'-'+datetime2[:8]+".nc"

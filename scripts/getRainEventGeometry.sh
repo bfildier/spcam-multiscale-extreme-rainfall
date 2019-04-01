@@ -17,7 +17,7 @@ if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	inputdir="/Users/bfildier/Data/preprocessed/"${case}"/day"
 	inputdir_fx="/Users/bfildier/Data/preprocessed/allExperiments/fx"
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	inputdir=${scriptdir%\/*}"/preprocessed/"${case}"/day"
 	inputdir_fx=${scriptdir%\/*}"/preprocessed/allExperiments/fx"

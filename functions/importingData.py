@@ -15,7 +15,8 @@ from netCDF4 import Dataset
 
 ## inputfiles is a list of inputfiles to open simultaneously.
 ## dates is a pair of date strings in the form 'YYYYMMDD'
-## - if both inputfiles and dates are NA, use all files $inputdir/$varid_*
+## - if both arguments 'inputfiles' and 'dates' are NA, 
+##   use all files $inputdir/$varid_*
 ## - if inputfiles is given, use this list in priority
 ## - if inputfiles is not given but dates is given, use corresponding files
 ## between those dates
@@ -44,7 +45,7 @@ def getInputfiles(varid,inputdir,inputfiles=None,dates=None):
     return inputfiles
 #
 # 2. Get values for processed data ($dataroot/preprocessed/$case/$freq/*)
-def getVar(varid,inputdir,inputfiles=None,dates=None):
+def getVar(varid,inputdir,inputfiles=None,dates=None,concataxis=0):
     if inputfiles is None:
         inputfiles = getInputfiles(varid,inputdir,inputfiles,dates)
     if len(inputfiles) == 0:
@@ -58,7 +59,7 @@ def getVar(varid,inputdir,inputfiles=None,dates=None):
         values_list.append(fh.variables[varid][:])
         fh.close()
     try:
-        values_array = np.concatenate(values_list,axis=0)
+        values_array = np.concatenate(values_list,axis=concataxis)
         return values_array
     except ValueError:
         return values_list
@@ -100,3 +101,19 @@ def getPressureCoordinateFunction(input_lev_file):
     P0 = fh.variables['P0'][:]
     fh.close()
     return lambda ps: (P0*hyam+ps*hybm)    # In hPa,mbar
+
+## Reads in file lev_fx_* with the required information
+## Returns a function which takes a ndarray of surface pressure values
+## and returns a ndarray of pressure values, by adding the pressure coordinate
+## as the last dimension
+def getPressureCoordinateFunctionKeepDimensions(input_lev_file):
+    fh = Dataset(input_lev_file,'r')
+    hyam = fh.variables['hyam'][:]
+    hybm = fh.variables['hybm'][:]
+    P0 = fh.variables['P0'][:]
+    fh.close()
+    def computeP(ps):
+        pres = np.add(np.multiply.outer(P0*np.ones(ps.shape),hyam),\
+                np.multiply.outer(ps,hybm)) # In hPa,mbar
+        return pres
+    return computeP

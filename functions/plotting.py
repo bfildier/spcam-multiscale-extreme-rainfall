@@ -116,7 +116,6 @@ def drawSubplot(lons_range,lats_range, lons, lats, values, varname, units, range
 		cb = m.colorbar(location='right',size="5%",pad="2%")
 		cb.ax.tick_params(labelsize=14)
 	
-    
 def scatterDensitySubplot(x,y,xlab,ylab,xunits='',yunits='',xlim=(None,None),\
 	ylim=(None,None),bins=None,title=None,cmap=plt.cm.Reds,ftsz=18):
 	valid_points = commonPoints(x,y)

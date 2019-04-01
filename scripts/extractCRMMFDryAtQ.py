@@ -76,7 +76,7 @@ def getInputDirectories(dataroot,compset,experiment):
 		inputdir = os.path.join(dataroot,"simulations",case)
 		inputdir_processed_day = os.path.join(dataroot,'preprocessed',case,'day')
 		inputdir_processed_1hr = os.path.join(dataroot,'preprocessed',case,'1hr')
-	elif "edison" in hostname:
+	elif "edison" in hostname or "cori" in hostname:
 		inputdir = os.path.join(dataroot,'archive',case,"atm/hist")
 		inputdir_processed_day = os.path.join(os.path.dirname(currentpath),'preprocessed',
 			case,'day')
@@ -95,7 +95,7 @@ def defineOutputDirectory(dataroot,compset,experiment):
 	if hostname == "jollyjumper":
 		outputdir = os.path.join(os.path.dirname(os.path.dirname(inputdir)),
 			'preprocessed',case,'1hr')
-	elif "edison" in hostname:
+	elif "edison" in hostname or "cori" in hostname:
 		outputdir = os.path.join(os.path.dirname(currentpath),'preprocessed',case,'1hr')
 
 	return outputdir

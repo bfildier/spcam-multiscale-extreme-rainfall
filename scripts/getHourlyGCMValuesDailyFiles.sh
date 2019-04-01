@@ -15,9 +15,11 @@ case="bf_"${compset}"_"$experiment
 
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
+	dataroot="/Users/bfildier/Data"
 	inputdir="/Users/bfildier/Data/simulations/"${case}
-elif [[ "$HOSTNAME" == "edison"* ]]
-then	
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
+then
+	dataroot=${scriptdir%\/*}
 	inputdir=${scriptdir%\/*}"/archive/"${case}"/atm/hist"
 fi
 
@@ -51,10 +53,11 @@ chmod +x incrementDate
 #    Get values for a sequences of variables    #
 #-----------------------------------------------#
 
-varids="CAPE CBMF CIN EVAPPREC FU FV ICEFRAC OMEGA PCLDBOT PCLDTOP PDELDRY"\
-" PRECC PRECL PRECSH PRECT PRECTMX PS Q RELHUM SPMC SPMCUP SST T TMQ TS"\
-" U V cin_Cu cinlcl_Cu umf_Cu wu_Cu"
-# varids="T"
+# varids="CAPE CBMF CIN EVAPPREC FU FV ICEFRAC OMEGA PCLDBOT PCLDTOP PDELDRY"\
+# " PRECC PRECL PRECSH PRECT PRECTMX PS Q RELHUM SPMC SPMCUP SST T TMQ TS"\
+# " U V cin_Cu cinlcl_Cu umf_Cu wu_Cu"
+# varids="RHO"
+varids="QVSATENV"
 for varid in `echo $varids`
 do
 	echo
@@ -72,8 +75,18 @@ do
 		"--- ${endDate}-${upperTime}$(tput sgr0)"
 		echo
 
-		python getHourlyGCMValues.py $varid $experiment $case ${startDate}-${lowerTime} \
-		 ${endDate}-${upperTime} $inputdir
+		if [ "$varid" == "RHO" ]
+		then
+			python computeHourlyDensityFromHourlyGCMValues.py -e $experiment \
+				-c $compset -d $dataroot -dt ${startDate}-${lowerTime} ${endDate}-${upperTime}
+		elif [ "$varid" == "QVSATENV" ]
+		then
+			python computeHourlyQvstarFromHourlyGCMTemperatureProfile.py -e $experiment \
+				-c $compset -d $dataroot -dt ${startDate}-${lowerTime} ${endDate}-${upperTime}
+		else
+			python getHourlyGCMValues.py $varid $experiment $case ${startDate}-${lowerTime} \
+		 		${endDate}-${upperTime} $inputdir
+		fi
 
 		# Increment dates
 		startDate=$endDate

@@ -16,7 +16,7 @@ case="bf_"${compset}"_"$experiment
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	inputdir="/Users/bfildier/Data/simulations/"${case}
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	inputdir=${scriptdir%\/*}"/archive/"${case}"/atm/hist"
 fi

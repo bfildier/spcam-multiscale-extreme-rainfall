@@ -13,7 +13,7 @@ source $scriptdir/loadPlatformSpecific.sh analysis
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	dataroot="/Users/bfildier/Data"
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	dataroot=${scriptdir%\/*}
 fi
@@ -39,11 +39,10 @@ var2D_ids="CAPE CBMF CIN CRM_PREC_I10 CRM_PREC_I25 CRM_PREC_I50 CRM_PREC_I75 CRM
 # " CRM_T_I10 CRM_T_I25 CRM_T_I50 CRM_T_I75 CRM_T_I90"\
 # " CRM_W_I10 CRM_W_I25 CRM_W_I50 CRM_W_I75 CRM_W_I90"\
 # " EVAPPREC FU FV OMEGA PDELDRY Q RELHUM SPMC SPMCUP T U V"
-var3D_ids="CRM_T_I10 CRM_T_I25 CRM_T_I50 CRM_T_I75 CRM_T_I90"\
-" CRM_W_I10 CRM_W_I25 CRM_W_I50 CRM_W_I75 CRM_W_I90"\
-" CRM_WUP_I10 CRM_WUP_I25 CRM_WUP_I50 CRM_WUP_I75 CRM_WUP_I90"\
-" CRM_WDN_I10 CRM_WDN_I25 CRM_WDN_I50 CRM_WDN_I75 CRM_WDN_I90"\
-" FU FV OMEGA Q RELHUM SPMC SPMCUP T U V"
+var3D_ids="OMEGA_CRM_W_I90 RHO_CRM_T_I90 CRM_OMEGA_WT_I90 QVSATENV_CRM_T_I90"\
+" OMEGA_CRM_W_I75 RHO_CRM_T_I75 CRM_OMEGA_WT_I75 QVSATENV_CRM_T_I75"\
+" OMEGA_CRM_W_I25 RHO_CRM_T_I25 CRM_OMEGA_WT_I25 QVSATENV_CRM_T_I25"\
+" OMEGA_CRM_W_I10 RHO_CRM_T_I10 CRM_OMEGA_WT_I10 QVSATENV_CRM_T_I10"
 
 
 ## Compute precipitation statistics for all prepcipitation variables
@@ -177,7 +176,7 @@ then
 fi
 
 ## Compute mean profiles at locations of precipitation quantile
-computeAllMeanProfilesAtQuantile=true
+computeAllMeanProfilesAtQuantile=false
 if [ "$computeAllMeanProfilesAtQuantile" == "true" ]
 then
 	for compset in `echo $compsets`

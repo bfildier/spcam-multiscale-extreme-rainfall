@@ -66,7 +66,7 @@ def getInputDirectories(dataroot,compset,experiment):
 	case = "bf_%s_%s"%(compset,experiment)
 	if hostname == "jollyjumper":
 		inputdir = os.path.join(dataroot,'preprocessed',case,'day')
-	elif "edison" in hostname:	
+	elif "edison" in hostname or "cori" in hostname:	
 		inputdir = os.path.join(os.path.dirname(currentpath),'preprocessed',
 			case,'day')
 	inputdir_fx = os.path.join(os.path.dirname(os.path.dirname(inputdir)),

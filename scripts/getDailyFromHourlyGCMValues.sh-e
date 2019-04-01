@@ -28,7 +28,7 @@ fi
 # varids="CAPE CBMF CIN EVAPPREC FU FV ICEFRAC OMEGA PCLDBOT PCLDTOP PDELDRY"\
 # " PRECC PRECL PRECSH PRECT PRECTMX PS Q RELHUM SPMC SPMCUP SST T TMQ TS"\
 # " U V cin_Cu cinlcl_Cu"
-varids="MF"
+varids="RHO"
 for varid in `echo $varids`
 do
 	echo

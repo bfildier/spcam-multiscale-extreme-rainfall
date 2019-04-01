@@ -15,7 +15,7 @@ from netCDF4 import Dataset
 import numpy as np
 import socket
 from argparse import ArgumentParser
-from pandas import DataFrame,MultiIndex
+from pandas import DataFrame,MultiIndex,read_csv
 import csv
 
 ## Own functions
@@ -58,7 +58,7 @@ def getInputDirectories(dataroot,compset,experiment):
 	case = "bf_%s_%s"%(compset,experiment)
 	if hostname == "jollyjumper":
 		inputdir = os.path.join(dataroot,'preprocessed',case,'day')
-	elif "edison" in hostname:	
+	elif "edison" in hostname or "cori" in hostname:	
 		inputdir = os.path.join(os.path.dirname(currentpath),'preprocessed',
 			case,'day')
 	inputdir_fx = os.path.join(os.path.dirname(os.path.dirname(inputdir)),
@@ -244,13 +244,47 @@ if __name__ == "__main__":
 	for i in ind_to_remove[::-1]:
 		del ind_tuples[i]
 	m_index = MultiIndex.from_tuples(ind_tuples)
+	# m_index = MultiIndex.from_tuples(ind_tuples,names=['varid','pr_id','Q_id'])
 
 	## Turn the 2D array into a dataframe with multi indices
 	df_meanAtQ = DataFrame(var_stacked_2D.T,columns=m_index)
 
 	##-- Save to CSV file --##
 
-	df_meanAtQ.to_csv(os.path.join(outputdir,outputfile))
+	overwrite = False
+	if overwrite:
+
+		df_meanAtQ.to_csv(os.path.join(outputdir,outputfile))
+
+	else:
+
+			#- Load old Dataframe -#
+
+		df_old = read_csv(os.path.join(outputdir,outputfile),\
+						header=[0,1,2], skipinitialspace=True)	# options required for 3D data
+
+			#- Convert both DataFrames to dictionaries -#
+
+		dict_old = dict(df_old)
+		dict_new = dict(df_meanAtQ)
+		# Following step seems required to avoid the error:
+		# "Exception: cannot handle a non-unique multi-index!"
+		for d in (dict_old,dict_new):
+			for key in d.keys():
+				if "Unnamed" in string.join(key,''):
+					d.pop(key,None)
+
+			#- Update old dictionary with new dictionaries -#
+
+		dict_old.update(dict_new)
+
+			#- Convert to DataFrame and export to CSV -#
+
+		df_new = DataFrame(dict_old)
+		# Following step required to avoid the warning: 
+		# "PerformanceWarning: indexing past lexsort depth may impact performance."
+		df_new.sortlevel(axis=1,inplace=True,sort_remaining=True)
+		df_new.to_csv(os.path.join(outputdir,outputfile))
 
 
 

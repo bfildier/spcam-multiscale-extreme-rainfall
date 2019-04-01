@@ -27,7 +27,7 @@ pr_id="CRM_PREC_I10"
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	dataroot="/Users/bfildier/Data"
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	dataroot=${scriptdir%\/*}
 fi

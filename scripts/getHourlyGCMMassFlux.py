@@ -58,7 +58,7 @@ def getInputDirectoryFx(inputdir):
 	hostname = socket.gethostname()
 	if hostname == "jollyjumper":
 		dataroot = os.path.dirname(os.path.dirname(inputdir))
-	elif "edison" in hostname:
+	elif "edison" in hostname or "cori" in hostname:
 		dataroot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(inputdir))))
 	inputdir_fx = os.path.join(dataroot,'preprocessed','allExperiments/fx')
 
@@ -72,7 +72,7 @@ def getOutputDirectory(inputdir,experiment,compset):
 	if hostname == "jollyjumper":
 		outputdir = os.path.join(os.path.dirname(os.path.dirname(inputdir)),
 			'preprocessed',case,'1hr')
-	elif "edison" in hostname:
+	elif "edison" in hostname or "cori" in hostname:
 		outputdir = os.path.join(os.path.dirname(currentpath),'preprocessed',case,'1hr')
 
 	return outputdir

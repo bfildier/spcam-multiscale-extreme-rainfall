@@ -39,6 +39,11 @@ lt['abrupt4xCO2'] = '-'
 # For fracChange vs. scaling
 lt['simulated'] = '-'
 lt['scaling'] = ':'
+lt['scaling_2'] = ':'
+lt['scaling_3'] = ':'
+lt['scaling_3_buck'] = ':'
+lt['scaling_4'] = ':'
+lt['scaling_5'] = ':'
 
 
 ##-- Define line widths --##
@@ -47,6 +52,11 @@ lw = {}
 # For fracChange vs. scaling
 lw['simulated'] = 1
 lw['scaling'] = 2
+lw['scaling_2'] = 2
+lw['scaling_3'] = 2
+lw['scaling_3_buck'] = 2
+lw['scaling_4'] = 2
+lw['scaling_5'] = 2
 
 
 ##-- Define dashes --##

@@ -16,7 +16,7 @@ case="bf_"${compset}"_"$experiment
 if [[ "$HOSTNAME" == "jollyjumper" ]]
 then
 	inputdir="/Users/bfildier/Data/preprocessed/"${case}"/1hr"
-elif [[ "$HOSTNAME" == "edison"* ]]
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
 then	
 	inputdir=${scriptdir%\/*}"/preprocessed/"${case}"/1hr"
 fi
@@ -28,7 +28,7 @@ fi
 # varids="CAPE CBMF CIN EVAPPREC FU FV ICEFRAC OMEGA PCLDBOT PCLDTOP PDELDRY"\
 # " PRECC PRECL PRECSH PRECT PRECTMX PS Q RELHUM SPMC SPMCUP SST T TMQ TS"\
 # " U V cin_Cu cinlcl_Cu"
-varids="MF"
+varids="RHO"
 for varid in `echo $varids`
 do
 	echo

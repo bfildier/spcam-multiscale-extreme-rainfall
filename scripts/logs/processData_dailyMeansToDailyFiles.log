@@ -3,8 +3,8 @@
 Environment already loaded
 
 ------------------------------------------------------------
------- Converting hourly to daily values for MF ------
+------ Converting hourly to daily values for RHO ------
 ------------------------------------------------------------
 
-MF_1hr_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_185005010100-185005020000.nc
-  -->  MF_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc
+RHO_1hr_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_185005010100-185005020000.nc
+  -->  RHO_day_CESM111-SPCAM20_abrupt4xCO2_r1i1p1_18500501-18500502.nc

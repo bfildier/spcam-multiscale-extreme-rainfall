@@ -456,4 +456,5 @@ def adiabat_simple(T_base,qt,zbot,ztop,dz,p,z_les):
     return_dict['p'] = p
     return_dict['z'] = z
     return_dict['MSE'] = MSE
-    return (return_dict) 
+    return (return_dict)
+

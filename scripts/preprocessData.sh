@@ -15,12 +15,18 @@ source $scriptdir/loadPlatformSpecific.sh preprocessing
 #----------------------#
 
 lowerTimeBound="1850-05-01-03600"
-upperTimeBound="1850-05-02-00000"
+if [[ "$HOSTNAME" == "jollyjumper" ]]
+then
+	upperTimeBound="1850-05-02-00000"
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
+then
+	upperTimeBound="1851-05-01-00000"
+fi
 
 compsets="FSPCAMm_AMIP FAMIPC5"
 experiments="piControl abrupt4xCO2"
 
-## Extract hourly data to daily files
+## Extract hourly data into daily files
 hourlyDataInDailyFiles=false
 if [ "$hourlyDataInDailyFiles" == "true" ]
 then
@@ -130,7 +136,7 @@ then
 fi
 
 ## Compute mean updrafts and downdrafts for indices of highest XX% local CRM_PREC values
-dailyMeanDraftsPrecFraction=true
+dailyMeanDraftsPrecFraction=false
 if [ "$dailyMeanDraftsPrecFraction" == "true" ]
 then
 	for compset in `echo $compsets`;
@@ -157,6 +163,23 @@ then
 			sed -i'' -e "s/^compset=.*/compset=\"${compset}\"/" getRainEventGeometry.sh
 			sed -i'' -e "s/^experiment=.*/experiment=\"${experiment}\"/" getRainEventGeometry.sh
 			./getRainEventGeometry.sh | tee logs/processData_rainEventGeometry_${compset}_${experiment}.log
+		done
+	done
+fi
+
+## Compute means outside indices of highest XX% local CRM_PREC values
+dailyMeansBelowPrecFraction=true
+if [ "$dailyMeansBelowPrecFraction" == "true" ]
+then
+	for compset in `echo $compsets`;
+	do
+		for experiment in `echo $experiments`;
+		do
+			sed -i'' -e "s/^compset=.*/compset=\"${compset}\"/" getDailyCRMMeansBelowPrecFraction.sh
+			sed -i'' -e "s/^experiment=.*/experiment=\"${experiment}\"/" getDailyCRMMeansBelowPrecFraction.sh
+			sed -i'' -e "s/^lowerTimeBound=.*/lowerTimeBound=\"${lowerTimeBound}\"/" getDailyCRMMeansBelowPrecFraction.sh
+			sed -i'' -e "s/^upperTimeBound=.*/upperTimeBound=\"${upperTimeBound}\"/" getDailyCRMMeansBelowPrecFraction.sh
+			./getDailyCRMMeansBelowPrecFraction.sh | tee logs/processData_dailyMeansBelowPrecFraction_${compset}_${experiment}.log
 		done
 	done
 fi

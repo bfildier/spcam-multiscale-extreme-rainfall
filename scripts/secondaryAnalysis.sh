@@ -23,11 +23,27 @@ area_ids="I50"
 # "  99.7488  99.8005  99.8415  99.8741  99.9     99.9206  99.9369  99.9499"\
 # "  99.9602  99.9684  99.9749  99.98    99.9842  99.9874  99.99    99.9921"\
 # "  99.9937  99.995   99.996   99.9968  99.9975  99.998   99.9984  99.9987"
-percentiles="99.9"
+# percentiles="99.9"
+percentiles="90.0      92.0567  93.6904  94.9881  96.0189  96.8377  97.4881  98.0047"\
+"  98.4151  98.7411  99.0      99.2057  99.369   99.4988  99.6019  99.6838"\
+"  99.7488  99.8005  99.8415  99.8741  99.9206  99.9369  99.9499"\
+"  99.9602  99.9684  99.9749  99.98    99.9842  99.9874  99.99    99.9921"\
+"  99.9937  99.995   99.996   99.9968  99.9975  99.998   99.9984  99.9987"
+# var3D_ids="OMEGA_CRM_W_I90 RHO_CRM_T_I90 CRM_OMEGA_WT_I90 QVSATENV_CRM_T_I90"\
+# " OMEGA_CRM_W_I75 RHO_CRM_T_I75 CRM_OMEGA_WT_I75 QVSATENV_CRM_T_I75"\
+# " OMEGA_CRM_W_I25 RHO_CRM_T_I25 CRM_OMEGA_WT_I25 QVSATENV_CRM_T_I25"\
+# " OMEGA_CRM_W_I10 RHO_CRM_T_I10 CRM_OMEGA_WT_I10 QVSATENV_CRM_T_I10"
+var3D_ids="CRM_W_O50"
 
 ## Time bounds
 lowerTimeBound="1850-05-01-03600"
-upperTimeBound="1851-05-01-00000"
+if [[ "$HOSTNAME" == "jollyjumper" ]]
+then
+	upperTimeBound="1850-05-02-00000"
+elif [[ "$HOSTNAME" == "edison"* ]] || [[ "$HOSTNAME" == "cori"* ]]
+then
+	upperTimeBound="1851-05-01-00000"
+fi
 
 ###--- Main code ---###
 
@@ -146,7 +162,7 @@ if [ "$extractCRMMFatQ" == "true" ]; then
 fi
 
 ## Extract vertically averaged CRM mass flux of given percentiles in the dry area
-extractCRMMFDryAtQ=true
+extractCRMMFDryAtQ=false
 if [ "$extractCRMMFDryAtQ" == "true" ]; then
 
 	sed -i'' -e "s/^lowerTimeBound=.*/lowerTimeBound=\"${lowerTimeBound}\"/" extractCRMMFDryAtQ.sh
@@ -187,9 +203,89 @@ if [ "$extractCRMMFDryAtQ" == "true" ]; then
 fi
 
 
+## Extract vertical convective-scale profiles of W of given percentiles
+extractCRMWatQ=false
+if [ "$extractCRMWatQ" == "true" ]; then
+
+	sed -i'' -e "s/^lowerTimeBound=.*/lowerTimeBound=\"${lowerTimeBound}\"/" extractCRMWatQ.sh
+	sed -i'' -e "s/^upperTimeBound=.*/upperTimeBound=\"${upperTimeBound}\"/" extractCRMWatQ.sh
+			
+	for compset in `echo ${compsets_crm}`; do
+		for experiment in `echo $experiments`; do
+			for subset in `echo $subsets`; do
+				for pr_id in `echo ${pr_ids}`; do
+					for area_id in `echo ${area_ids}`; do
+						for percentile in `echo ${percentiles}`; do
+
+							echo 
+							echo "------------------------------------------------------------------------"
+							echo "     Extracting CRM mass flux for:"
+							echo "     - compset $compset"
+							echo "     - experiment $experiment"
+							echo "     - subset $subset"
+							echo "     - precipitation variables ${pr_id}"
+							echo "     - percentile $percentile"
+							echo "------------------------------------------------------------------------"
+							echo
+
+							sed -i'' -e "s/^compset=.*/compset=\"${compset}\"/" extractCRMWatQ.sh
+							sed -i'' -e "s/^experiment=.*/experiment=\"${experiment}\"/" extractCRMWatQ.sh
+							sed -i'' -e "s/^subset=.*/subset=\"${subset}\"/" extractCRMWatQ.sh
+							sed -i'' -e "s/^pr_id=.*/pr_id=\"${pr_id}\"/" extractCRMWatQ.sh
+							sed -i'' -e "s/^area_id=.*/area_id=\"${area_id}\"/" extractCRMWatQ.sh
+							sed -i'' -e "s/^q_id=.*/q_id=\"${percentile}\"/" extractCRMWatQ.sh
+							./extractCRMWatQ.sh
+
+						done
+					done
+				done
+			done
+		done
+	done
+fi
 
 
+## Extract vertical profiles of varid at locations of given percentiles
+extractDailyProfilesAtQ=true
+if [ "$extractDailyProfilesAtQ" == "true" ]; then
 
+	sed -i'' -e "s/^lowerTimeBound=.*/lowerTimeBound=\"${lowerTimeBound}\"/" extractDailyProfilesAtQ.sh
+	sed -i'' -e "s/^upperTimeBound=.*/upperTimeBound=\"${upperTimeBound}\"/" extractDailyProfilesAtQ.sh
+			
+	for compset in `echo ${compsets_crm}`; do
+		for experiment in `echo $experiments`; do
+			for subset in `echo $subsets`; do
+				for varid in `echo ${var3D_ids}`; do
+					for pr_id in `echo ${pr_ids}`; do
+						for percentile in `echo ${percentiles}`; do
+
+							echo 
+							echo "------------------------------------------------------------------------"
+							echo "     Extracting CRM mass flux for:"
+							echo "     - compset $compset"
+							echo "     - experiment $experiment"
+							echo "     - subset $subset"
+							echo "     - varid $varid"
+							echo "     - precipitation variables ${pr_id}"
+							echo "     - percentile $percentile"
+							echo "------------------------------------------------------------------------"
+							echo
+
+							sed -i'' -e "s/^compset=.*/compset=\"${compset}\"/" extractDailyProfilesAtQ.sh
+							sed -i'' -e "s/^experiment=.*/experiment=\"${experiment}\"/" extractDailyProfilesAtQ.sh
+							sed -i'' -e "s/^subset=.*/subset=\"${subset}\"/" extractDailyProfilesAtQ.sh
+							sed -i'' -e "s/^pr_id=.*/pr_id=\"${pr_id}\"/" extractDailyProfilesAtQ.sh
+							sed -i'' -e "s/^varid=.*/varid=\"${varid}\"/" extractDailyProfilesAtQ.sh
+							sed -i'' -e "s/^q_id=.*/q_id=\"${percentile}\"/" extractDailyProfilesAtQ.sh
+							./extractDailyProfilesAtQ.sh
+
+						done
+					done
+				done
+			done
+		done
+	done
+fi
 
 
 

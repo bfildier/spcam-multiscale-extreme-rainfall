@@ -61,7 +61,10 @@ def getTroposphereSlice(temp):
         temp_m = computeMean(temp)
         i_trop = np.argmax(temp_m == temp_m.min())
         i_BL = np.argmax(temp_m == temp_m.max())
-    return slice(i_trop,i_BL+1)
+    i_min,i_max = i_trop,i_BL
+    if i_min > i_max:
+        i_min,i_max = i_max,i_min
+    return slice(i_min,i_max+1)
 
 ## Crop all profiles entered as a tuple
 def cropProfiles(profile_tuple,crop_slice):
@@ -76,10 +79,11 @@ def cropProfiles(profile_tuple,crop_slice):
 
 
 ## Compute profiles to use for scaling based on mean profiles at quantile
-def profilesForScalingFromMeanProfilesAtQ(pres,temp,omega,rho=None,w=None):
+def profilesForScalingFromMeanProfilesAtQ(pres,temp,omega,rho=None,w=None,qvs=None):
 
     # Compute qvstar profile according to reference temperature profile chosen
-    qvs = qvstarProfile(pres,temp)
+    if qvs is None:
+        qvs = qvstarProfile(pres,temp)
 
     # Crop all profiles to tropospheric values
     slice_trop = getTroposphereSlice(temp)
@@ -91,6 +95,33 @@ def profilesForScalingFromMeanProfilesAtQ(pres,temp,omega,rho=None,w=None):
             return pres_c, temp_c, qvs_c, omega_c, rho_c, w_c
         return pres_c, temp_c, qvs_c, omega_c, rho_c
     return pres_c, temp_c, qvs_c, omega_c
+
+## Compute profiles to use for scaling based on mean profiles at quantile
+# Qvstar computed with Buck's approximation
+def profilesForScalingFromMeanProfilesAtQFromBuck(pres,temp,omega,rho=None,w=None):
+
+    # Compute qvstar profile according to reference temperature profile chosen
+    qvs = saturationSpecificHumidity(temp,pres)
+
+    # Crop all profiles to tropospheric values
+    slice_trop = getTroposphereSlice(temp)
+    (pres_c,temp_c,qvs_c,omega_c) = cropProfiles((pres,temp,qvs,omega),slice_trop)
+    if rho is not None:
+        (rho_c,) = cropProfiles((rho,),slice_trop)
+        if w is not None:
+            (w_c,) = cropProfiles((w,),slice_trop)
+            return pres_c, temp_c, qvs_c, omega_c, rho_c, w_c
+        return pres_c, temp_c, qvs_c, omega_c, rho_c
+    return pres_c, temp_c, qvs_c, omega_c
+
+## Compute profiles to use for scaling based on mean profiles at quantile
+def profilesForScaling2FromMeanProfilesAtQ(pres,temp,qvs,omega):
+
+    # Crop all profiles to tropospheric values
+    slice_trop = getTroposphereSlice(temp)
+    (pres_c,temp_c,qvs_c,omega_c) = cropProfiles((pres,temp,qvs,omega),slice_trop)
+    
+    return pres_c,temp_c,qvs_c, omega_c
 
 
 ## Compute profiles later used for the scaling of extreme precipitation
@@ -169,10 +200,12 @@ def computeScaling(omega,qvs=None,dqvsdp=None,pres=None):
 
     if pres is None and qvs is not None:    # qvs must have the same dimension as omega
 
+        # sign = np.sign(np.diff(qvs))[0]
+        sign = 1
         dqvs = np.diff(qvs)
         omega_mid = 0.5*(np.add(omega[:-1],omega[1:]))
         # Compute integral + convert from Pa/(m/s) to mm/day
-        pr_est = np.nansum(-np.multiply(omega_mid,dqvs)/g)*86400
+        pr_est = np.nansum(-sign*np.multiply(omega_mid,dqvs)/g)*86400
         
     elif pres is not None and dqvsdp is not None:    # qvs.size must equal omega.size-1
 
